@@ -6,7 +6,7 @@
 
 This project is designed to assess your full-stack development skills using NextJS and TailwindCSS. You will be responsible for implementing a stock search and purchase workflow, integrating with 3rd party libraries to fetch stock and performance data, as needed and if time permits.
 
-The goal is to create an application where users can search for stock information, view performance data, and simulate stock purchases. This exercise will test your ability to work across the stack, from front-end interactions to back-end data management.
+The goal is to create an application where users can search for stocks, view performance data, and simulate stock purchases. This exercise will test your ability to work across the stack, from frontend interactions to backend API structure.
 
 ## Getting Started
 
@@ -23,24 +23,19 @@ The goal is to create an application where users can search for stock informatio
 - **Your Call:** Add any additional features (or talk about them if running out of time) on what else could be added.
 
 ## Recommended Libraries
+
 1. [node-yahoo-finance-2](https://github.com/gadicc/node-yahoo-finance2)
 2. [Tanstack Query](https://github.com/tanstack/query)
 3. [react-chart-js-2](https://github.com/reactchartjs/react-chartjs-2)
-
 
 ## API Endpoint
 
 A test API endpoint has been provided to give an example on how the Next API functionality works.
 
-
 ## Evaluation Criteria
 
 Your project will be evaluated based on the following criteria:
+
 - **Functionality:** Search and mock order placement should work as expected
 - **Organization/Quality:** Ensure code is structured well and extensible for future use
 - **Design Decisions:** Ability to implement a reasonable design without much direction and the limited time
-
-
-
-
-
