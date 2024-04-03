@@ -1,7 +1,5 @@
 # Carry Fullstack Interview
 
-# Stock Search and Purchase Workflow Project
-
 ## Overview
 
 This project is designed to assess your full-stack development skills using NextJS and TailwindCSS. You will be responsible for implementing a stock search and purchase workflow, integrating with 3rd party libraries to fetch stock and performance data, as needed and if time permits.
