@@ -76,17 +76,17 @@ const Home: NextPage = () => {
         </div>
       </main>
 
-      <div>
-        {tickerData && (
-          <form onSubmit={handleSubmit()}>
-            <p>Ticker</p>
-            {tickerData.ticker}
-            <p>Stock count</p>
-            <input type="number" defaultValue="test"  />
-            <input type="submit" />
-          </form>
-        )}
-      </div>
+      {/*<div>*/}
+      {/*  {tickerData && (*/}
+      {/*    <form onSubmit={handleSubmit()}>*/}
+      {/*      <p>Ticker</p>*/}
+      {/*      {tickerData.ticker}*/}
+      {/*      <p>Stock count</p>*/}
+      {/*      <input type="number" defaultValue="test"  />*/}
+      {/*      <input type="submit" />*/}
+      {/*    </form>*/}
+      {/*  )}*/}
+      {/*</div>*/}
     </div>
   );
 };
