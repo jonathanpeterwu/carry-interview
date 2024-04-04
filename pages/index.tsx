@@ -4,22 +4,31 @@ import {
   useQuery,
   useMutation,
   useQueryClient,
-  QueryClient,
-  QueryClientProvider,
 } from '@tanstack/react-query'
+import { getStock } from '../services/index';
+import {StockData} from "../utils/interfaces";
 
 const Home: NextPage = () => {
+  const queryClient = useQueryClient();
+  const stockMutation = useMutation({
+    mutationFn: getStock,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['stock'] })
+    },
+  })
 
-  // TODO Implement Search Results functionality
   const [ticker, setSearchTerm] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [tickerData, setTickerData] = useState<any>();
 
-  useEffect(() => {
-    if (ticker !== "") {
-
-      // trigger automatic fetch to API
+  useEffect( () => {
+    const fetchStock = async (ticker: string) => {
+      const res = await getStock(ticker);
+      setTickerData(res.data);
+    };
+    if (ticker !== "" && ticker.length > 3) {
+      fetchStock(ticker).then(r => console.log('done'));
     }
-  }, [ticker])
+  }, [ticker]);
 
   // TODO Implement Purchase Flow
   // TODO Implement Account Update
@@ -30,8 +39,9 @@ const Home: NextPage = () => {
         <h1 className="text-2xl font-bold text-left">Carry</h1>
       </div>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-start pt-16 px-20 text-center">
-        <div className="p-4 bg-white rounded-lg space-y-4 w-2/3">
+
+      <main className="flex w-full flex-1 flex-col items-center justify-start pt-16 px-20">
+        <div className="p-4 bg-white rounded-lg space-y-4 w-2/3 text-center">
           <p className="text-xl text-left">Stock Search</p>
           <input
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -40,31 +50,31 @@ const Home: NextPage = () => {
             className="w-full h-10 px-2 border border-gray-300 rounded-lg"
           />
         </div>
+        <button
+          className="py-4 px-8  align-left bg-blue-800 radius rounded-md text-white text-center"
+          onClick={async () => {
+            const res = await getStock(ticker);
+            setTickerData(res);
+          }}
+        >
+          Search
+        </button>
+
+        <div className="p4 bg-white text-start mt-10">
+          {tickerData && (
+            <div>
+              <p>
+                {tickerData.name} -  {tickerData.ticker} - {tickerData.value}
+              </p>
+            </div>
+          )}
+        </div>
       </main>
 
-      {searchResults.length > 0 && (
-        <div className="flex w-full flex-1 flex-col items-center justify-center py-4 px-8 text-left">
-          <h3>Stocks</h3>
-          <ul role="list" className="divide-y divide-gray-100">
-            {searchResults.map((result) => (
-              <li key={result} className="py-4">
-                {result}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
 
-      {/*<main className="flex w-full flex-1 flex-col items-center justify-start pt-16 px-20 text-center">*/}
-      {/*  <div className="p-4 bg-white rounded-lg space-y-4 w-2/3">*/}
-      {/*    <p className="text-xl text-left">Stock Search</p>*/}
-      {/*    <input*/}
-      {/*      type="text"*/}
-      {/*      placeholder="CRRY"*/}
-      {/*      className="w-full h-10 px-2 border border-gray-300 rounded-lg"*/}
-      {/*    />*/}
-      {/*  </div>*/}
-      {/*</main>*/}
+
+
+
     </div>
   );
 };
