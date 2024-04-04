@@ -1,21 +1,26 @@
 import type { NextPage } from "next";
 import {useEffect, useState} from "react";
 import {
-  useQuery,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { getStock } from '../services/index';
+import { buyStock, getStock } from '../services/index';
 import {StockData} from "../utils/interfaces";
+import { useForm, SubmitHandler } from "react-hook-form"
 
 const Home: NextPage = () => {
   const queryClient = useQueryClient();
-  const stockMutation = useMutation({
-    mutationFn: getStock,
+  const buyMutation = useMutation({
+    mutationFn: buyStock,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['stock'] })
+      queryClient.invalidateQueries({ queryKey: ['buy-stock'] })
     },
   })
+
+  const handleSubmit = () => {
+    // TODO add react hook form input values here stock ticker and number of shares
+    buyMutation.mutate();
+  }
 
   const [ticker, setSearchTerm] = useState<string>("");
   const [tickerData, setTickerData] = useState<any>();
@@ -71,10 +76,17 @@ const Home: NextPage = () => {
         </div>
       </main>
 
-
-
-
-
+      <div>
+        {tickerData && (
+          <form onSubmit={handleSubmit()}>
+            <p>Ticker</p>
+            {tickerData.ticker}
+            <p>Stock count</p>
+            <input type="number" defaultValue="test"  />
+            <input type="submit" />
+          </form>
+        )}
+      </div>
     </div>
   );
 };
